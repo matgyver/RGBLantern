@@ -36,4 +36,13 @@ Revision: 1.0
 Revision History:																			
 	1.0 - Initial design/program - MEN
 
+RGB Lantern Project
 
+The RGB Lantern Project is designed to read in sensor inputs and then change the output of the BlinkM
+module accordingly.  The BlinkM module was choosen as it also contains additional pre-programmed modes
+that can easily be accessed using the I2C bus.  In addition, it is very possible to chain multiple 
+BlinkM modules for added effects as well.  The premise of the project is to have this as an outdoor
+lantern that will read in temperature, humidity and pressure data.  The RGB LEDs can then respond to these
+sensors accordingly.  In addition to sending this information by color information, an xBee module was
+also included to give data via the 18F2520 UART.  A simple ASCII menu system was also developed so the user
+can change modes of the lantern in addition to obtaining data from the sensors
