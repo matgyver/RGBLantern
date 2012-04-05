@@ -10,8 +10,8 @@
 # Include project Makefile
 include Makefile
 # Include makefile containing local settings
-ifeq "$(wildcard nbproject/Makefile-local-default.mk)" "nbproject/Makefile-local-default.mk"
-include nbproject/Makefile-local-default.mk
+ifeq "$(wildcard nbproject/Makefile-local-HWrev1.mk)" "nbproject/Makefile-local-HWrev1.mk"
+include nbproject/Makefile-local-HWrev1.mk
 endif
 
 # Environment
@@ -21,7 +21,7 @@ MV=mv
 CP=cp 
 
 # Macros
-CND_CONF=default
+CND_CONF=HWrev1
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 IMAGE_TYPE=debug
 OUTPUT_SUFFIX=cof
@@ -62,7 +62,7 @@ LDLIBSOPTIONS=
 FIXDEPS=fixDeps
 
 .build-conf:  ${BUILD_SUBPROJECTS}
-	${MAKE}  -f nbproject/Makefile-default.mk dist/${CND_CONF}/${IMAGE_TYPE}/RGB_Lantern.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+	${MAKE}  -f nbproject/Makefile-HWrev1.mk dist/${CND_CONF}/${IMAGE_TYPE}/RGB_Lantern.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
 MP_PROCESSOR_OPTION=18F2520
 MP_PROCESSOR_OPTION_LD=18f2520
@@ -125,8 +125,8 @@ endif
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
-	${RM} -r build/default
-	${RM} -r dist/default
+	${RM} -r build/HWrev1
+	${RM} -r dist/HWrev1
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

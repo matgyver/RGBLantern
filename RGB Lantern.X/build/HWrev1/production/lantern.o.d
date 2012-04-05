@@ -1,4 +1,4 @@
-build/default/production/lantern.o : \
+build/HWrev1/production/lantern.o : \
 	C:/Users/matgyver/RGBLantern/RGB\ Lantern.X/lantern.c \
 	C:/Program\ Files\ (x86)/Microchip/mplabc18/v3.40/h/usart.h \
 	C:/Program\ Files\ (x86)/Microchip/mplabc18/v3.40/h/stdio.h \

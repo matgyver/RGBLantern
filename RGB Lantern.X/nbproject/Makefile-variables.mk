@@ -4,10 +4,10 @@
 # NOCDDL
 #
 CND_BASEDIR=`pwd`
-# default configuration
-CND_ARTIFACT_DIR_default=dist/default/production
-CND_ARTIFACT_NAME_default=RGB_Lantern.X.production.hex
-CND_ARTIFACT_PATH_default=dist/default/production/RGB_Lantern.X.production.hex
-CND_PACKAGE_DIR_default=${CND_DISTDIR}/default/package
-CND_PACKAGE_NAME_default=rgblantern.x.tar
-CND_PACKAGE_PATH_default=${CND_DISTDIR}/default/package/rgblantern.x.tar
+# HWrev1 configuration
+CND_ARTIFACT_DIR_HWrev1=dist/HWrev1/production
+CND_ARTIFACT_NAME_HWrev1=RGB_Lantern.X.production.hex
+CND_ARTIFACT_PATH_HWrev1=dist/HWrev1/production/RGB_Lantern.X.production.hex
+CND_PACKAGE_DIR_HWrev1=${CND_DISTDIR}/HWrev1/package
+CND_PACKAGE_NAME_HWrev1=rgblantern.x.tar
+CND_PACKAGE_PATH_HWrev1=${CND_DISTDIR}/HWrev1/package/rgblantern.x.tar

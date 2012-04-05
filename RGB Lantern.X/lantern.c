@@ -1,14 +1,22 @@
 /***********************************************************************************************/
 /*	PIC-Lantern																					*/
-/*	Open Engineering, LLC dba AeroDyne Labs							 							*/
-/*	www.aerodynelabs.com																		*/
-/*																								*/
-/*	All code is copyright 2011 by the author, Matthew E. Nelson									*/
-/*	Unless authorized by the author, permission to redistribute the code is given solely 		*/
-/*	to Open Engineering, LLC. dba AeroDyne Labs													*/
-/*  For questions on redistribution, please contact Matthew Nelson at mnelson@aerodynelabs.com  */
-/*																								*/
-/*																								*/
+/*	Open Engineering, LLC dba AeroDyne Labs							
+/*	www.aerodynelabs.com
+ * Copyright (c) <2012> <Matthew E. NElson>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+and associated documentation files (the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /*																								*/
 /*	Discussion:																					*/
 /*				*/
@@ -18,6 +26,7 @@
 /*																								*/
 /*																								*/
 /*  Pin diagram for 18F2520
+ * Hardware Revision 1
 Port A			Port B				Port C			
 RA0 - PWR LED		RB0 - Mode select		RC0
 RA1 - Light sensor	RB1 - Mode select		RC1
@@ -70,7 +79,7 @@ RA7 - 			RB7 - ICSP			RC7 - Serial RX   */
 //Global Variables Declarations
 //========================================================
 int Blink_B = 0x00;         //Broadcast address for BlinkM modules
-int RGB_0 = 0x12;        //address of the BlinkM Module, node 0, it's actually 0x09, but it's left shifted
+int RGB_0 = 0x12;           //address of the BlinkM Module, node 0, it's actually 0x09, but it's left shifted
 int RGB_1 = 0x13;           //address of node 1, humidity
 int RGB_2 = 0x14;           //address of node 2
 int RGB_3 = 0x15;           //address of node 3
@@ -112,19 +121,19 @@ void rx_int (void)
 #pragma interrupt rx_handler 
  void rx_handler (void) 
  {
-	while(!DataRdyUSART());
+    while(!DataRdyUSART());
     i = ReadUSART();            	// read a single character from buffer
-	PIR1bits.RCIF = 0; 		//reset the ISR flag.
-	if ( 27 == i ){
-        printf((const far rom char*)"\n\r>\n\rThat was the ESC key ASCII# %d - rebooting!\n\r",27);
-        Reset();
+    PIR1bits.RCIF = 0;                  //reset the ISR flag.
+    if ( 27 == i ){
+    printf((const far rom char*)"\n\r>\n\rThat was the ESC key ASCII# %d - rebooting!\n\r",27);
+    Reset();
  }
-	else
+    else
     printf((const far rom char*)"\n\r>\n\rNothing to see here...\n\r",27);
-	PIR1bits.RCIF = 0; 		//reset the ISR flag. 
-	process_command(i);             //calling a function in an ISR is not ideal, but it works
- 	//PIR1bits.RCIF = 0; 		//reset the ISR flag. 
-	return;
+    PIR1bits.RCIF = 0; 		//reset the ISR flag.
+    process_command(i);             //calling a function in an ISR is not ideal, but it works
+    //PIR1bits.RCIF = 0; 		//reset the ISR flag.
+    return;
  }
 
 //Main Program
@@ -132,37 +141,35 @@ void rx_int (void)
 void main (void)
 {
 //Startup and Init
-	OSCCON = 0b01110000;        //8MHz; using the internal clock
-  	TRISA = 0b111111110;        //PORTA set RA0 as output, the rest inputs for A/D
-	TRISB = 0;                  //PORTB set as outputs
-  	LATA = 0;                   //Sets all bits low on PORTA
-	LATB = 0;                   //Sets all bits low on PORTB
-	TRISC = 0xC0;               // turn on tri-state register and make all output pins
-   	PORTC = 0x00;               // make all output pins LOW
-
-	//Init USART, set to 19,200, turn on RX Interrupt
-	OpenUSART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT & USART_CONT_RX & USART_BRGH_HIGH, 51);
-	RCONbits.IPEN = 1;          //Enable interrupt priority
-	IPR1bits.RCIP = 1;          //Make receive interrupt high priority
-	INTCONbits.GIEH = 1;        //Enable all high priority interrupts
-	Delay10KTCYx(255);          //This gives us time for the ATTiny to boot up so it will listen to commands
-	CPU_LED = 1;                //turns on power LED (RED LED on OLIMEX board)
-	set_BlinkM_addr (RGB_1);
-        set_color_now(RGB_1,0,0,255);
-        main_menu();                //Display the main menu on the serial port
-	reset:                      //Reset goto, if we press the ESC key, we reset to this point
-	stop_script ();
-	set_color_now(RGB_0,255,0,0);
-	fade_speed (RGB_0,2);
-	fade_to_color(RGB_0,0,0,255);
-	Delay10KTCYx(255);
+    OSCCON = 0b01110000;        //8MHz; using the internal clock
+    TRISA = 0b111111110;        //PORTA set RA0 as output, the rest inputs for A/D
+    TRISB = 0;                  //PORTB set as outputs
+    LATA = 0;                   //Sets all bits low on PORTA
+    LATB = 0;                   //Sets all bits low on PORTB
+    TRISC = 0xC0;               // turn on tri-state register and make all output pins
+    PORTC = 0x00;               // make all output pins LOW
+    //Init USART, set to 19,200, turn on RX Interrupt
+    OpenUSART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT & USART_CONT_RX & USART_BRGH_HIGH, 51);
+    RCONbits.IPEN = 1;          //Enable interrupt priority
+    IPR1bits.RCIP = 1;          //Make receive interrupt high priority
+    INTCONbits.GIEH = 1;        //Enable all high priority interrupts
+    Delay10KTCYx(255);          //This gives us time for the ATTiny to boot up so it will listen to commands
+    CPU_LED = 1;                //turns on power LED (RED LED on OLIMEX board)
+    set_BlinkM_addr (RGB_1);
+    set_color_now(RGB_1,0,0,255);
+    main_menu();                //Display the main menu on the serial port
+    reset:                      //Reset goto, if we press the ESC key, we reset to this point
+    stop_script ();
+    set_color_now(RGB_0,255,0,0);
+    fade_speed (RGB_0,2);
+    fade_to_color(RGB_0,0,0,255);
+    Delay10KTCYx(255);
 //Begin infinite loop
-	while(1)  {
-
+    while(1)  {
 //Here we are starting off by putting the lantern in RGB Temp color mode.  This is just a bootstrap, the serial interrupt takes care of the rest
-	if (color_flag == 0)         //If the color flag is set high we don't execute the Color temp RGB routine
-            weather_mode();
- 	} 									
+    if (color_flag == 0)         //If the color flag is set high we don't execute the Color temp RGB routine
+        weather_mode();
+    }
 }
 //Functions
 //========================================================
@@ -171,38 +178,38 @@ void main (void)
 //This displays the menu command through the serial port
 void main_menu (void)
 {
-  	printf((const far rom char*)"\n\n\rAERODYNE LABS UNIFIED OPERATING SYSTEM\n\n\r");
-	printf((const far rom char*)"Copyright 2010-2011 AERODYNE LABS\n\r");
-	printf((const far rom char*)"            -RGB Lantern\n\r"); 
-    	printf((const far rom char*)"Press M to put Lantern in Mood lighting mode\n\r"); 
-    	printf((const far rom char*)"Press C to put Lantern in Candle mode\n\r");
-	printf((const far rom char*)"Press S to put Lantern in Seasons mode\n\r");
-	printf((const far rom char*)"Press W to put Lantern in Thunderstorm mode\n\r");
-	printf((const far rom char*)"Press E to stop execution of a mode\n\r");
-	printf((const far rom char*)"Press T to read back the temperature\n\r");
-    	printf((const far rom char*)"Press F to read temp and set LED by temp value\n\r");
-        printf((const far rom char*)"Press A to go into weather mode\n\r");
-	printf((const far rom char*)"Press L to read back the light sensor value\n\r");
-	printf((const far rom char*)"Press 0 (zero) to fade off the RGB LED\n\r");
-	printf((const far rom char*)"Press H to bring these instructions up again.\n\n\r");
-    	printf((const far rom char*)"LANTERN>");   
+    printf((const far rom char*)"\n\n\rAERODYNE LABS UNIFIED OPERATING SYSTEM\n\n\r");
+    printf((const far rom char*)"Copyright 2010-2011 AERODYNE LABS\n\r");
+    printf((const far rom char*)"            -RGB Lantern\n\r");
+    printf((const far rom char*)"Press M to put Lantern in Mood lighting mode\n\r");
+    printf((const far rom char*)"Press C to put Lantern in Candle mode\n\r");
+    printf((const far rom char*)"Press S to put Lantern in Seasons mode\n\r");
+    printf((const far rom char*)"Press W to put Lantern in Thunderstorm mode\n\r");
+    printf((const far rom char*)"Press E to stop execution of a mode\n\r");
+    printf((const far rom char*)"Press T to read back the temperature\n\r");
+    printf((const far rom char*)"Press F to read temp and set LED by temp value\n\r");
+    printf((const far rom char*)"Press A to go into weather mode\n\r");
+    printf((const far rom char*)"Press L to read back the light sensor value\n\r");
+    printf((const far rom char*)"Press 0 (zero) to fade off the RGB LED\n\r");
+    printf((const far rom char*)"Press H to bring these instructions up again.\n\n\r");
+    printf((const far rom char*)"LANTERN>");
 }
 
 //Once we have a command, process it
 void process_command (char i)
 {
-  printf((const far rom char*)"\n\rYou pressed %c\n\r",i,i); 
-  if ( ('0' <= i) && (i <= '9') ){
-  printf((const far rom char*)"Confirmed digit pressed...\n\r");
-	switch (i) {
-            case '0':
-                printf((const far rom char*)"RGB LED Fading to off \n\r");
-		color_flag = 1;
-		fade_to_color(RGB_0,0,0,0);
-		printf((const far rom char*)"RGB LED is now off.\n\r");
-		break;			
-		default: 
-                    printf((const far rom char*)"FUFUFUFUFUFUFUFUFU \n\r");
+    printf((const far rom char*)"\n\rYou pressed %c\n\r",i,i);
+    if ( ('0' <= i) && (i <= '9') ){
+    printf((const far rom char*)"Confirmed digit pressed...\n\r");
+    switch (i) {
+        case '0':
+            printf((const far rom char*)"RGB LED Fading to off \n\r");
+            color_flag = 1;
+            fade_to_color(RGB_0,0,0,0);
+            printf((const far rom char*)"RGB LED is now off.\n\r");
+            break;
+        default:
+            printf((const far rom char*)"FUFUFUFUFUFUFUFUFU \n\r");
 	}		
     }
     else
@@ -278,18 +285,17 @@ void process_command (char i)
         printf((const far rom char*)"I'm sorry Dave, but I can't do that.\n\r");
          //printf((const far rom char*)"PICLANTERN>");
 }
-
 //This funtion reads the temp, then looks up the the RGB values from the Red, Green and Blue tables
 //It then sets the color and sends the temp data on the serial port
 void set_temp_color (void)
 {
-	stop_script();
-	CPU_LED = ~CPU_LED;  			//Toggle the CPU_LED
-	temp_sensor = read_temp();
-	leftfloat = (int)temp_sensor;  //Stores the values from the left side of the decimal
-	fade_to_color(RGB_0,Red_LookupTable[leftfloat],Green_LookupTable[leftfloat],Blue_LookupTable[leftfloat]);
-	fprintf(_H_USART, (const far rom char*)"Temp:%#u|",leftfloat, " \n\r");
-	Delay10KTCYx(128);
+    stop_script();
+    CPU_LED = ~CPU_LED;  			//Toggle the CPU_LED
+    temp_sensor = read_temp();
+    leftfloat = (int)temp_sensor;  //Stores the values from the left side of the decimal
+    fade_to_color(RGB_0,Red_LookupTable[leftfloat],Green_LookupTable[leftfloat],Blue_LookupTable[leftfloat]);
+    fprintf(_H_USART, (const far rom char*)"Temp:%#u|",leftfloat, " \n\r");
+    Delay10KTCYx(128);
 }	
 
 void weather_mode (void)
@@ -305,7 +311,6 @@ void weather_mode (void)
     fprintf(_H_USART, (const far rom char*)"$RGB,%#u,%#u,%#u,%#u,%#u,#\n\r",FW_VERSION,leftfloat,humidity_sensor,pressure_sensor,light_sensor);
     Delay10KTCYx(128);
 }
-
 /*  Read the temp sensor from the A/D and return the temp in degrees F */
 float read_temp (void)
 {
@@ -324,8 +329,7 @@ float read_temp (void)
     fahrenheit = ((celsius*(1.8))+32)-4;
 
     return fahrenheit;
-}
-	
+}	
 /*  Read the light sensor from the A/D and return the 10-bit value */
 
 int read_light (void)
