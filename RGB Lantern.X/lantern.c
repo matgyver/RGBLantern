@@ -148,6 +148,7 @@ void main (void)
     LATB = 0;                   //Sets all bits low on PORTB
     TRISC = 0xC0;               // turn on tri-state register and make all output pins
     PORTC = 0x00;               // make all output pins LOW
+
     //Init USART, set to 19,200, turn on RX Interrupt
     OpenUSART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT & USART_CONT_RX & USART_BRGH_HIGH, 51);
     RCONbits.IPEN = 1;          //Enable interrupt priority
@@ -179,7 +180,7 @@ void main (void)
 void main_menu (void)
 {
     printf((const far rom char*)"\n\n\rAERODYNE LABS UNIFIED OPERATING SYSTEM\n\n\r");
-    printf((const far rom char*)"Copyright 2010-2011 AERODYNE LABS\n\r");
+    printf((const far rom char*)"Copyright 2010-2012 AERODYNE LABS\n\r");
     printf((const far rom char*)"            -RGB Lantern\n\r");
     printf((const far rom char*)"Press M to put Lantern in Mood lighting mode\n\r");
     printf((const far rom char*)"Press C to put Lantern in Candle mode\n\r");
