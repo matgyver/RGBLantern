@@ -1,0 +1,105 @@
+\documentclass[letterpaper,twoside]{article}
+
+\usepackage{geometry}
+\setlength{\oddsidemargin}{15.5pt} 
+\setlength{\evensidemargin}{15.5pt}
+
+\usepackage{multicol}
+\usepackage{mdwlist}
+\usepackage{url}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{18pt}
+% Create custom page style
+\fancyhf{} % Clear defaults
+\fancyhead[LE,RO]{\textbf{\Large{RGB Lantern}}}
+\fancyhead[RE,LO]{\Large{AeroDyne Labs}}
+\fancyfoot[C]{\thepage}
+\fancyfoot[LE,RO]{sales@aerodynelabs.com}
+\fancyfoot[RE,LO]{\copyright 2012,2013 AeroDyne Labs}
+\renewcommand{\headrulewidth}{2pt}
+\renewcommand{\footrulewidth}{1pt}
+% Override plan page style
+\fancypagestyle{plain}{%
+\fancyhf{} % Clear defaults
+\fancyfoot[C]{\thepage}
+\fancyfoot[LE,RO]{sales@aerodynelabs.com}
+\fancyfoot[RE,LO]{\copyright 2012,2013 AeroDyne Labs}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{1pt}
+}
+
+\begin{document}
+
+\thispagestyle{plain} % Kill header on first page
+\textsf{\textbf{\Large{AeroDyne Labs}}}\\
+\rule{\linewidth}{2pt}
+\vspace{8pt}
+\par\textsf{\textbf{\Huge{RGB Lantern}}}
+\vspace{16pt}
+\par\textsf{\textbf{\Large{Weather Beacon System}}}
+\vspace{8pt}\\
+\rule{\linewidth}{1pt}
+\vspace{8pt}
+
+\begin{multicols}{2}
+
+\section*{General Description}
+The RGB Lantern is a outdoor lantern equipped with weather sensors.  Using these sensors the RGB lantern will adjust the color of the RGB to indicate certain weather information.  In addition, the RGB lantern can also play a series of pre-recorded light patterns that are stored on the BlinkM.  Several BlinkMs can be chained together through a RJ45 connector that provides both power and data to each module.  
+
+\vfill
+\columnbreak
+
+\section*{Features}
+\begin{itemize*}
+	\item Temp, humidity, and pressure sensors
+	\item Onboard light sensor for nighttime use 
+	\item Up to 8 additional modules
+	\item 6-15 VDC input
+	\item Uses the BlinkM RGB module
+	\item Optional xBee module for sending weather information
+
+\end{itemize*}
+
+\end{multicols}
+
+\newpage
+
+\tableofcontents
+
+\section{Overview}
+Where is everything on this thing
+
+\section{Quick Start}
+How to make this thing do its thing quickly so you can eat a sammich
+
+\section{Using an xBee to send data}
+How to set this thing up
+
+\section{Custom playback scripts}
+How to tell this thing what to do
+
+\section{Using the RGB Lantern outdoors}
+How to make this thing awesome
+
+\appendix
+\newpage
+\section*{Troubleshooting}
+\begin{center}
+\begin{tabular}{l | p{0.65\textwidth}}
+Symptom & Solutions \\
+\hline
+Symptom number one &%
+$\bullet$ Solution number one\newline
+$\bullet$ Solution number two\\
+Symptom number two &%
+Solution number one\newline
+Solution number two
+\end{tabular}
+\end{center}
+
+\section*{Customer Support}
+If you require support for your device, please first read the troubleshooting section of this manual. If you are unable to resolve the problem please check the product page at \url{http://www.aerodynelabs.com/products/rgblantern} for any updated documentation or software. If your problem persists, please contact \url{support@aerodynelabs.com} for further help.
+
+\end{document}

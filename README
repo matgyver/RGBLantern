@@ -3,7 +3,7 @@ Open Engineering, LLC dba AeroDyne Labs
 www.aerodynelabs.com																		
 																								
 
-Copyright (c) <2012> <Matthew E. NElson>
+Copyright (c) <2012> <Matthew E. Nelson>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
 and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -32,7 +32,9 @@ RA7 -				RB7 - ICSP			RC7 - Serial RX   */
 
 
 Revision: 1.0																				
-																						
+PLEASE NOTE
+Currently, this has been tested to compile with the C18 compiler, and has been tested
+with version 3.40 of the C18 compiler.  It will not compile under XC8.  I plan to re-write the code for the newer XC9 compiler…someday.																						
 Revision History:																			
 	1.0 - Initial design/program - MEN
 
